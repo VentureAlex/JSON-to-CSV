@@ -1,16 +1,4 @@
 {
-    "realtime_start": "2024-03-14",
-    "realtime_end": "2024-03-14",
-    "observation_start": "1600-01-01",
-    "observation_end": "9999-12-31",
-    "units": "lin",
-    "output_type": 1,
-    "file_type": "json",
-    "order_by": "observation_date",
-    "sort_order": "asc",
-    "count": 2764,
-    "offset": 0,
-    "limit": 100000,
     "observations": [
         {
             "realtime_start": "2024-03-14",

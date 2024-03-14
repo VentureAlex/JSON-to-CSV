@@ -1,25 +1,36 @@
-# Since the provided JSON data is a subset, let's simulate loading it directly from a string for this example
+import json
+import csv
 
-json_data = """
+# Example usage
+json_file_path = './Input/data.json'  # Path to the JSON file
+csv_file_path = './Output/data.csv'     # Path to the output CSV file
 
-"""
+# Function to convert a JSON file to a CSV file
+def json_to_csv(json_file_path, csv_file_path):
+    # Open the JSON file
+    with open(json_file_path, 'r', encoding='utf-8') as json_file:
+        # Load the JSON data
+        data = json.load(json_file)
+        
+        # Ensure the data is a list of records
+        if not isinstance(data, list):
+            data = [data]
+        
+        # Open the CSV file for writing
+        with open(csv_file_path, 'w', newline='', encoding='utf-8') as csv_file:
+            # Create a CSV writer object
+            csv_writer = csv.writer(csv_file)
+            
+            # Write the header (column names) to the CSV file
+            # Assuming all dictionaries have the same structure
+            headers = data[0].keys()
+            csv_writer.writerow(headers)
+            
+            # Write the JSON data to the CSV file
+            for record in data:
+                csv_writer.writerow(record.values())
 
-# Parse the JSON data
-data = json.loads(json_data)
+# Convert JSON to CSV
+json_to_csv(json_file_path, csv_file_path)
 
-# Extract just the observations part, which is what we want to convert to CSV
-observations = data['observations']
-
-# Define the output file name
-output_file_name = './output/data.csv'
-
-# Write to CSV, focusing only on the observations part
-with open(output_file_name, mode='w', newline='') as csv_file:
-    fieldnames = ['realtime_start', 'realtime_end', 'date', 'value']
-    writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-    writer.writeheader()
-    for row in observations:
-        writer.writerow(row)
-
-# Return the path to the saved CSV file
-output_file_name
+print(f"Conversion completed. The CSV file is saved as '{csv_file_path}'.")
